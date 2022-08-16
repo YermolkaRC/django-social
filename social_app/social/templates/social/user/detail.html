@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{user.name}}</title>
+</head>
+<body>
+    <h1>{{user.name}}</h1><br><br>
+    <h2>{{user.info}}</h2><br><br>
+    <h2>User's posts:</h2><br>
+    {% if user.post_set.all %}
+    {% for post in user.post_set.all %}
+        <li><a href="{% url 'social:post_detail' post.id%}"><h3>{{post.name}}</h3></a></li>
+    {% endfor %}
+    {% endif %}
+
+    Subscribed to:<br>
+    {% if user.from_user.all %}
+    {% for sub in user.from_user.all %}
+            <li><a href="{% url 'social:user_detail' sub.to_user.username %}">{{sub.to_user.username}}</li>
+    {% endfor %}
+    {% endif %}
+    <h3><a href="{% url 'social:index'%}">Home</a></h3>
+</body>
+</html>

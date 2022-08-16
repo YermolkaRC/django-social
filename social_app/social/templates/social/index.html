@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% if not is_authenticated %}
+    <h2>
+        <a href="{% url 'social:user_login' %}">Log In</a><br>
+        <a href="{% url 'social:user_create' %}">Create an account</a><br>    
+    </h2>
+    {% else %}
+    <h2>
+        <a href="{% url 'social:user_detail' user.username%}">My Profile</a><br>
+        <a href="{% url 'social:user_posts' user.username%}">My Posts</a><br>
+        <a href="{% url 'social:user_logout'%}">Log Out</a><br>
+    </h2>
+    {% endif %}
+    {% if latest_posts %}
+    <ul>
+        {% for post in latest_posts %}
+            <li><a href="{% url 'social:post_detail' post.id %}">{{ post.name }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No posts are available.</p>
+    {% endif %}
+</body>
+</html>

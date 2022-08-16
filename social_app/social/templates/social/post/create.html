@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create an account</title>
+</head>
+<body>
+    {% if not is_authenticated %}
+    <h3>Please <a href="{% url 'social:user_login' %}">log in </a>first</h3>
+    {% else %}
+    <form action="{% url 'social:post_create' user.username %}" method="post">
+        {%csrf_token%}
+        <fieldset>
+            {% if error_message %}<h3>{{error_message}}</h3><br> {% endif %}
+            Name:<br><input type="text" name="name" id="name"><br>
+            Text: <br><input type="text" name="text" id="text"><br>
+           </fieldset>
+        <input type="submit" value="Create">
+    </form>
+    {% endif %}
+    <h3><a href="{% url 'social:index'%}">Home</a></h3>
+</body>
+</html>
